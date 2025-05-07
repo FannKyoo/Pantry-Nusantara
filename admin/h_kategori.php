@@ -2,7 +2,7 @@
 include "koneksi.php";
 $id = $_GET['id'];
 
-$hapus = mysqli_query($koneksi, "DELETE FROM tb_kategori WHERE id_kategori = 
+$hapus = mysqli_query($koneksi, "DELETE FROM tb_ktg WHERE id_ktg = 
 '$id'");
 
 if ($hapus) {

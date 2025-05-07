@@ -44,7 +44,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Pantry Nusantara</span>
       </a>
@@ -52,8 +52,8 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+      <form class="search-form d-flex align-items-center" method="POST" action="">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword" value="<?php echo isset($_POST['query']) ? htmlspecialchars($_POST['query']) : ''; ?>">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -171,7 +171,7 @@
       <h1>Kategori Produk</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
           <li class="breadcrumb-item active">Kategori Produk</li>
         </ol>
       </nav>
@@ -183,7 +183,8 @@
                 <div class="card-body">
                 <a herf="t_kategori.php" class="btn btn-primary mt-3">
                         <i class="bi bi-plus-lg"></i> Tambah Data 
-                    </a>                    
+                    </a>
+                  </div>                    
                 </div>
             </div>
         </div>
@@ -195,10 +196,10 @@
               
 
               <!-- Table with stripped rows -->
-              <table class="table table-striped">
+              <table class="table table-striped mt-2">
                 <thead>
                   <tr>
-                    <th>no</th>
+                    <th>No</th>
                     <th >Nama Kategori</th>
                     <th >Aksi</th>
                   </tr>
@@ -209,34 +210,35 @@
                     $no = 1;
                     // Cek apakah ada pencarian
                     $query = isset($_POST['query']) ?
-                    mysqli_real_escape_string($koneksi, $_POST['query']) : '';
+                    mysqli_real_escape_string($koneksi, $_POST
+                    ['query']) : '';
 
                     // Query Dasar
-                    $sql_query = "SELECT id_kategori, nm_kategori FROM tb_kategori";
+                    $sql_query = "SELECT id_ktg, nm_ktg FROM tb_ktg";
 
                     // Jika ada pencarian, tambahkan kondisi WHERE
                     if (!empty($query)) {
-                        $sql_query .= " WHERE nm_kategori LIKE '%$query%'";
+                        $sql_query .= " WHERE nm_ktg LIKE '%$query%'";
                     }
-                    $sql_query= mysqli_query($koneksi, $sql_query);
+                    $sql = mysqli_query($koneksi, $sql_query);
                     if ($sql_query) 
                       if (mysqli_num_rows($sql) > 0) {
                         while ($hasil = mysqli_fetch_array($sql)) {
                       ?>
                         <td><?php echo $no++; ?></td>
                         <td><?php echo $hasil
-                        ['nama_kategori']; ?></td>
+                        ['nm_ktg']; ?></td>
                         <td>
-                          <a href="e_kategori.php?id_kategori=<?
+                          <a href="e_kategori.php?id_ktg=<?
                           php echo $hasil
-                          ['id_kategori']; ?>"
+                          ['id_ktg']; ?>"
                           class="btn btn-warning">
                             <i class="bi
                              bi-pencil-square"></i>
                           </a>                       
-                          <a href="h_kategori.php?id_kategori=<?
+                          <a href="h_kategori.php?id_ktg=<?
                           php echo $hasil
-                          ['id_kategori']; ?>"
+                          ['id_ktg']; ?>"
                           class="btn btn-danger"
                           onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                             <i class="bi bi-trash"></i>
@@ -248,7 +250,7 @@
                    } else {
                       ?>
                       <tr>
-                        <td colspan="3" class="text-center">Tidak ada data</td>
+                        <td colspan="3" class="text-center">Belum ada data</td>
                       </tr>
                       <?php
                       }

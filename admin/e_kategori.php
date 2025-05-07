@@ -3,13 +3,13 @@ include "koneksi.php";
 
 
 $id  = $_GET['id'];
-$sql = mysqli_query($koneksi, "SELECT * FROM tb_kategori WHERE id_kategori = '$id'");
+$sql = mysqli_query($koneksi, "SELECT * FROM tb_ktg WHERE id_ktg = '$id'");
 $data = mysqli_fetch_array($sql);
 
 if (isset($_POST['simpan'])) {
-    $nm_kategori = $_POST['nm_kategori'];
+    $nm_ktg = $_POST['nm_ktg'];
 
-    $query = mysqli_query($koneksi, "UPDATE tb_kategori SET nm_kategori = '$nm_kategori' WHERE id_kategori = '$id'");
+    $query = mysqli_query($koneksi, "UPDATE tb_ktg SET nm_ktg = '$nm_ktg' WHERE id_ktg = '$id'");
     
     if ($query) {
         echo "<script>alert('Data Berhasil Diubah!');</script>";
@@ -19,10 +19,9 @@ if (isset($_POST['simpan'])) {
         header("refresh:0; kategori.php");
     }
 }
+
 ?>
-
-
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +71,7 @@ if (isset($_POST['simpan'])) {
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Pantry Nusantara</span>
+        <span class="d-none d-lg-block">PantryNusantara</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -92,7 +91,7 @@ if (isset($_POST['simpan'])) {
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Vladilena Milize</h6>
+              <h6>FannKyoo</h6>
               <span>Admin</span>
             </li>
             <li>
@@ -197,14 +196,16 @@ if (isset($_POST['simpan'])) {
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <form class="row g-1 mt-2" method="post">
+              <form class="row g-3 mt-2" method="post">
                 <div class="col-12">
-                  <label for="nm_kategori"
+                  <label for="nm_ktg"
                   class="form-label">Nama Kategori</label>
-                  <input type="text" class="form-control"
-                  id="nm_kategori" name="nm_kategori"
+                  <input type="text"
+                  class="form-control"
+                  id="nm_ktg"
+                  name="nm_ktg"
                   placeholder="Masukkan Nama Kategori Produk" 
-                  value="<?php echo isset($data['nm_kategori']) ? $data["nm_kategori"] : ''; ?>">
+                  value="<?php echo isset($data['nm_ktg']) ? $data["nm_ktg"] : ''; ?>">
                 </div>
                 <div class="text-center">
                   <button type="reset" class="btn btn-secondary">Reset</button>
