@@ -1,26 +1,22 @@
 <?php
 include "koneksi.php";
 
-
-$id  = $_GET['id'];
-$sql = mysqli_query($koneksi, "SELECT * FROM tb_ktg WHERE id_ktg = '$id'");
+$id = $_GET['id'];
+$sql = mysqli_query($koneksi, "SELECT * FROM tb_ktg WHERE id_ktg ='$id'");
 $data = mysqli_fetch_array($sql);
 
-if (isset($_POST['simpan'])) {
+if(isset($_POST['simpan'])) {
     $nm_ktg = $_POST['nm_ktg'];
 
-    $query = mysqli_query($koneksi, "UPDATE tb_ktg SET nm_ktg = '$nm_ktg' WHERE id_ktg = '$id'");
-    
-    if ($query) {
-        echo "<script>alert('Data Berhasil Diubah!');</script>";
-        header("refresh:0; kategori.php");
-    } else {
-        echo "<script>alert('Data Gagal Diubah!');</script>";
-        header("refresh:0; kategori.php");
-    }
+  $query = mysqli_query($koneksi, "UPDATE tb_ktg SET nm_ktg= '$nm_ktg' WHERE id_ktg = '$id'");
+  if ($query) {
+    echo "<script>alert('Data berhasil diubah')</script>";
+    header("refresh:0, kategori.php");
+  } else {
+    echo "<script>alert('Data gagal diubah')</script>";
+    header("refresh:0, kategori.php");
+  }
 }
-
-?>
 ?>
 
 <!DOCTYPE html>
@@ -76,17 +72,13 @@ if (isset($_POST['simpan'])) {
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="assets/img/lena2.jpg" alt="Profile" class="rounded-circle">
-          </a><!-- End Profile Iamge Icon -->
-
+            <img src="assets/img/user.jpeg" alt="Profile" class="rounded-circle">
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -96,9 +88,7 @@ if (isset($_POST['simpan'])) {
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
 
-            
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -124,56 +114,54 @@ if (isset($_POST['simpan'])) {
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
-          <i class="bi bi-grid"></i>
+        <a class="nav-link " href="index.php">
+        <i class="bi bi-1-circle"></i>
           <span>Beranda</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li><!-- End Beranda Nav -->
 
+     
       <li class="nav-item">
         <a class="nav-link collapsed" href="kategori.php">
-        <i class="bi bi-book"></i>
+        <i class="bi bi-arrow-right-square-fill"></i>
           <span>Kategori Produk</span>
         </a>
-      </li><!-- End Kategori Page Nav -->
+      </li><!-- End Kategori Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="produk.php">
-        <i class="bi bi-basket3"></i>
+        <i class="bi bi-amazon"></i>
           <span>Produk</span>
         </a>
-      </li><!-- End pProduk Page Nav -->
+      </li><!-- End Produk Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="keranjang.php">
-        <i class="bi bi-cart"></i>
+        <i class="bi bi-inboxes"></i>
           <span>Keranjang</span>
         </a>
       </li><!-- End Keranjang Page Nav -->
 
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="transaksi.php">
-        <i class="bi bi-cash-coin"></i>
+        <i class="bi bi-currency-yen"></i>
           <span>Transaksi</span>
         </a>
       </li><!-- End Transaksi Page Nav -->
 
-       <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="laporan.php">
-        <i class="bi bi-card-checklist"></i>
+        <i class="bi bi-bug-fill"></i>
           <span>Laporan</span>
         </a>
       </li><!-- End Laporan Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pengguna.php">
-        <i class="bi bi-emoji-wink"></i>
+        <i class="bi bi-crosshair2"></i>
           <span>Pengguna</span>
         </a>
       </li><!-- End Pengguna Page Nav -->
-    </ul>
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -198,23 +186,19 @@ if (isset($_POST['simpan'])) {
             <div class="card-body">
               <form class="row g-3 mt-2" method="post">
                 <div class="col-12">
-                  <label for="nm_ktg"
-                  class="form-label">Nama Kategori</label>
-                  <input type="text"
-                  class="form-control"
-                  id="nm_ktg"
-                  name="nm_ktg"
-                  placeholder="Masukkan Nama Kategori Produk" 
-                  value="<?php echo isset($data['nm_ktg']) ? $data["nm_ktg"] : ''; ?>">
+                  <label for="nm_ktg"  class="form-label">Nama Kategori</label>
+                  <input type="text" class="form-control"
+                  id="nm_ktg" name="nm_ktg"
+                  placeholder="Masukkan Nama Kategori Produk" value="<?php echo $data['nm_ktg']; ?>">
                 </div>
                 <div class="text-center">
                   <button type="reset" class="btn btn-secondary">Reset</button>
                   <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                 </div>
-              </form>
+              </form>             
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </section>
 
@@ -223,15 +207,15 @@ if (isset($_POST['simpan'])) {
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>FannKyoo</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Pantry</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-        Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw=="
-        target="_blank">Vladilena</a>
+        Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="blank">FannKyoo</a> 
+    </div>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

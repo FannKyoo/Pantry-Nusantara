@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 if (isset($_POST['simpan'])) {
-    $auto = mysqli_query($koneksi, "select max(id_ktg) as max_code from tb_kategori");
+    $auto = mysqli_query($koneksi, "select max(id_ktg) as max_code from tb_ktg");
     $hasil = mysqli_fetch_array($auto);
     $code = $hasil['max_code'];
     $urutan = (int) substr($code, 1, 3);
@@ -68,33 +68,33 @@ if (isset($_POST['simpan'])) {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">PantryNusantara</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-    
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/obito.jpg" alt="Profile" class="rounded-circle">
+            <img src="assets/img/naro.jpeg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Gunawan</h6>
-              <span>Web Designer</span>
+              <h6>FannKyoo</h6>
+              <span>Admin</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-          
+            <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
@@ -116,7 +116,7 @@ if (isset($_POST['simpan'])) {
 
       <li class="nav-item">
         <a class="nav-link " href="index.php">
-        <i class="bi bi-house-fill"></i>
+        <i class="bi bi-1-circle"></i>
           <span>Beranda</span>
         </a>
       </li><!-- End Beranda Nav -->
@@ -124,46 +124,46 @@ if (isset($_POST['simpan'])) {
      
       <li class="nav-item">
         <a class="nav-link collapsed" href="kategori.php">
-        <i class="bi bi-cart-check"></i>
+        <i class="bi bi-arrow-right-square-fill"></i>
           <span>Kategori Produk</span>
         </a>
       </li><!-- End Kategori Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="produk.php">
-        <i class="bi bi-search"></i>
+        <i class="bi bi-amazon"></i>
           <span>Produk</span>
         </a>
       </li><!-- End Produk Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="keranjang.php">
-        <i class="bi bi-bag-check"></i>
+        <i class="bi bi-inboxes"></i>
           <span>Keranjang</span>
         </a>
       </li><!-- End Keranjang Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="transaksi.php">
-        <i class="bi bi-wallet"></i>
+        <i class="bi bi-currency-yen"></i>
           <span>Transaksi</span>
         </a>
       </li><!-- End Transaksi Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="laporan.php">
-        <i class="bi bi-question-circle"></i>
+        <i class="bi bi-bug-fill"></i>
           <span>Laporan</span>
         </a>
       </li><!-- End Laporan Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pengguna.php">
-        <i class="bi bi-person-circle"></i>
+        <i class="bi bi-crosshair2"></i>
           <span>Pengguna</span>
         </a>
-      </li><!-- End Pengguna Page Nav -->
-
+      </li>
+      <!-- End Pengguna Page Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -183,22 +183,24 @@ if (isset($_POST['simpan'])) {
     
     <section class="section">
       <div class="row">
-</div class="col-lg-6">
+        <div class="col-lg-6">
           <div class="card">
-</div class="card-body">
+            <div class="card-body">
               <!-- Vertical Form -->
               <form class="row g-3 mt-2" method="post">
                 <div class="col-12">
                   <label for="nm_ktg" class="form-label">Nama Kategori</label>
                   <input type="text" class="form-control" name="nm_ktg" id="nm_ktg " placeholder="Masukkan Nama Kategori Produk">
                 </div>
-              </div class="text-center">
+                <div class="text-center">
                   <button type="reset" class="btn btn-secondary">Reset</button>
                   <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                 </div>
               </form><!-- Vertical Form -->
 
-         
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -215,7 +217,7 @@ if (isset($_POST['simpan'])) {
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==">FannKyoo</a>
+        Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="blank">bang.fannreign</a>
     </div>
   </footer><!-- End Footer -->
 
