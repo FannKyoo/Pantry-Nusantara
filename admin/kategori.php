@@ -205,7 +205,7 @@
                                     $no = 1;
                                     $query = isset($_POST['query']) ? mysqli_real_escape_string($koneksi, $_POST['query']) : '';
 
-                                    $sql_query = "select id_ktg, nm_ktg from tb_ktg";
+                                    $sql_query = "SELECT id_ktg, nm_ktg FROM tb_ktg";
 
                                     if (!empty($query)) {
                                         $sql_query .= " WHERE nm_ktg LIKE '%$query%'";

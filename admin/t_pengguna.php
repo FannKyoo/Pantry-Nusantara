@@ -1,50 +1,37 @@
 <?php
 include "koneksi.php";
-
-// Mendapatkan kode produk otomatis
-$auto = mysqli_query($koneksi, "SELECT MAX(id_produk) AS max_code FROM tb_produk");
-$hasil = mysqli_fetch_array($auto);
-$code = $hasil['max_code'];
-$urutan = (int)substr($code, 1, 3);
-$urutan++;
-$huruf = "P";
-$id_produk = $huruf . sprintf("%03s", $urutan);
-
 if (isset($_POST['simpan'])) {
-    $nm_produk = $_POST['nm_produk'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $desk = $_POST['desk'];
-    $id_ktg = $_POST['id_ktg'];
+    // Ambil ID terakhir dari tb_user
+    $auto = mysqli_query($koneksi, "SELECT MAX(id_user) AS max_code FROM tb_user");
+    $hasil = mysqli_fetch_array($auto);
+    $code = $hasil['max_code'];
 
-    //upload gambar
-    $imgfile = $_FILES['gambar']['name'];
-    $tmpfile = $_FILES['gambar']['tmp_name'];
-    $extension = strtolower(pathinfo($imgfile, PATHINFO_EXTENSION));
+    // Menghasilkan ID baru dengan format U001, U002, dst.
+    $urutan = (int)substr($code, 1, 3);
+    $urutan++;
+    $huruf = "U";
+    $id_user = $huruf . sprintf("%03s", $urutan);
 
-    $dir = "produk_img/"; // Direktori penyimpanan gambar
-    $allowed_extensions = array("jpg", "jpeg", "png", "webp");
-    
-    if (!in_array($extension, $allowed_extensions)) {
-        echo "<script>alert('Format tidak valid. Hanya JPG, JPEG, PNG, dan WEBP yang diperbolehkan.');</script>";
+    // Ambil input dari form
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash password
+    $status = $_POST['status'];
+
+    // Query untuk insert data ke tb_user
+    $query = mysqli_query($koneksi, "INSERT INTO tb_user (id_user, username, password, status) 
+                                     VALUES ('$id_user', '$username', '$password', '$status')");
+
+    // Notifikasi
+    if ($query) {
+        echo "<script>alert('Data pengguna berhasil ditambahkan!');</script>";
+        header("refresh:0, pengguna.php");
     } else {
-        // Rename file gambar agar unik
-        $imgnewfile = md5(time() . $imgfile) . "." . $extension;
-        move_uploaded_file($tmpfile, $dir . $imgnewfile);
-
-        //Simpan data ke database
-        $query = mysqli_query($koneksi, "INSERT INTO tb_produk (id_produk, nm_produk, harga, stok, desk, id_ktg, gambar) VALUES ('$id_produk', '$nm_produk', '$harga', '$stok', '$desk', '$id_ktg', '$imgnewfile')");
-        
-        if ($query) {
-            echo "<script>alert('Produk berhasil ditambahkan!');</script>";
-            header("refresh:0, produk.php");
-        } else {
-            echo "<script>alert('Gagal menambahkan produk!');</script>";
-            header("refresh:0, produk.php");
-        }
+        echo "<script>alert('Data pengguna gagal ditambahkan!');</script>";
+        header("refresh:0, pengguna.php");
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +39,7 @@ if (isset($_POST['simpan'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Produk - PantryNusantara Admin</title>
+    <title>Pengguna - Furnimart Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -85,7 +72,7 @@ if (isset($_POST['simpan'])) {
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.php" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">PantryNusantara</span>
+                <span class="d-none d-lg-block">Furnimart</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -96,24 +83,16 @@ if (isset($_POST['simpan'])) {
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/winter.jpg" alt="Profile" class="rounded-circle">
-                        <!-- profile-img.jpg diganti nama file gambar kalian -->
+                        <img src="assets/img/user.jpg" alt="Profile" class="rounded-circle">
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>FannKyoo</h6>
+                            <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?></h6>
                             <span>Admin</span>
                         </li>
                         <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -147,7 +126,7 @@ if (isset($_POST['simpan'])) {
             </li><!-- End Kategori Produk Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="produk.php">
+                <a class="nav-link collapsed" href="produk.php">
                     <i class="bi bi-shop"></i>
                     <span>Produk</span>
                 </a>
@@ -174,7 +153,7 @@ if (isset($_POST['simpan'])) {
                 </a>
             </li><!-- End Laporan Page Nav -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pengguna.php">
+                <a class="nav-link" href="pengguna.php">
                     <i class="bi bi-people"></i>
                     <span>Pengguna</span>
                 </a>
@@ -186,57 +165,45 @@ if (isset($_POST['simpan'])) {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Produk</h1>
+            <h1>Pengguna</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
-                    <li class="breadcrumb-item">Produk</li>
+                    <li class="breadcrumb-item">Pengguna</li>
                     <li class="breadcrumb-item active">Tambah</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+
         <section class="section">
             <div class="row">
                 <div class="col-lg-6">
-
                     <div class="card">
                         <div class="card-body">
+                            <form class="row g-3 mt-2" method="post">
+                                <!-- Username -->
+                                <div class="col-12">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" maxlength="100" required>
+                                </div>
 
-                            <!-- Vertical Form -->
-                            <form class="row g-3 mt-2" method="post" enctype="multipart/form-data">
+                                <!-- Password -->
                                 <div class="col-12">
-                                    <label for="nm_produk" class="form-label">Nama Produk</label>
-                                    <input type="text" class="form-control" id="nm_produk" name="nm_produk" placeholder="Masukkan Nama Produk" required>
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" required>
                                 </div>
+
+                                <!-- Status -->
                                 <div class="col-12">
-                                    <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukkan Harga Produk" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="stok" class="form-label">Stok</label>
-                                    <input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan Stok Produk" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="desk" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="desk" name="desk" placeholder="Masukkan Deskripsi Produk" required></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label for="id_ktg" class="form-label">Kategori</label>
-                                    <select class="form-control" id="id_ktg" name="id_ktg" required>
-                                        <option value="">-- Pilih Kategori --</option>
-                                        <?php
-                                        include "koneksi.php";
-                                        $query = mysqli_query($koneksi, "SELECT * FROM tb_ktg");
-                                        while ($kategori = mysqli_fetch_array($query)) {
-                                            echo "<option value='{$kategori['id_ktg']}'>$kategori[nm_ktg]</option>";
-                                        }
-                                        ?> 
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" name="status" required>
+                                        <option value="">Pilih Status</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="customer">Customer</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label for="gambar" class="form-label">Gambar Produk</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-                                </div>
+
+                                <!-- Tombol -->
                                 <div class="text-center">
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                     <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
@@ -245,7 +212,6 @@ if (isset($_POST['simpan'])) {
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -255,10 +221,10 @@ if (isset($_POST['simpan'])) {
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>Nama Website</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>Furnimart</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="link ig">Nama Kalian</a>
+            Designed by <a href="https://instagram.com/dea.salsa.503/" target="_blank">Dea Salsabilla</a>
         </div>
     </footer><!-- End Footer -->
 
