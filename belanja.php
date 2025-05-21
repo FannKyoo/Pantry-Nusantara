@@ -563,7 +563,7 @@
                             </form>
                         </div>
                         <div class="live-info">
-                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+62) 81350303621</b></p>
+                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+62) 81359303621</b></p>
                             <p class="working-time">Senin - Jumat: 8:30am-7:30pm;b Sabtu: 9:30am-4:30pm</p>
                         </div>
                     </div>
