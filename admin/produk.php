@@ -68,7 +68,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword"
-                    value="<?php echo isset($_POST['query']) ? htmlspecialchars($_POST['query']) : ''; ?>" />
+                    value="<?php echo isset($_POST['query']) ? htmlspecialchars($_POST['query']) : ''; ?>">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
         </div><!-- End Search Bar -->
@@ -116,7 +116,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="index.php">
-                    <i class="bi bi-1-circle"></i>
+                   <i class="bi bi-1-circle"></i>
                     <span>Beranda</span>
                 </a>
             </li><!-- End Beranda Nav -->
@@ -137,7 +137,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="keranjang.php">
-                    <i class="bi bi-inboxes"></i>
+                  <i class="bi bi-inboxes"></i>
                     <span>Keranjang</span>
                 </a>
             </li><!-- End Keranjang Page Nav -->
@@ -158,7 +158,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="pengguna.php">
-                    <i class="bi bi-crosshair2"></i>
+                     <i class="bi bi-crosshair2"></i>
                     <span>Pengguna</span>
                 </a>
             </li><!-- End Pengguna Page Nav -->
