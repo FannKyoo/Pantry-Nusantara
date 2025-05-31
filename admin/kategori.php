@@ -74,7 +74,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>FannKyoo</h6>
+              <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'arfan'; ?></h6>
               <span>Admin</span>
             </li>
             <li>

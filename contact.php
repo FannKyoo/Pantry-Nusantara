@@ -8,7 +8,7 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hubungi Kami - Freshly.id</title>
+    <title>Hubungi Kami - PantryNusantara</title>
     <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
@@ -82,7 +82,7 @@ session_start();
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-6 d-flex align-items-center">
-                        <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">Freshly.id</b></a>
+                        <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">PantryNusantara</b></a>
                     </div>
                     <div class="col-lg-6 col-md-6 d-none d-md-block text-center">
                         <div class="primary-menu">
@@ -100,13 +100,13 @@ session_start();
                             <?php if (isset($_SESSION['username'])) : ?>
                                 <?php
                                 include 'admin/koneksi.php';
-                                $user_id = $_SESSION['id_user'] null;
+                               $user_id = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null;
 
                                 if ($user_id) {
                                     $query = "SELECT COUNT(*) as total FROM tb_pesanan WHERE id_user = '$user_id'";
                                     $result = mysqli_query($koneksi, $query);
                                     $data = mysqli_fetch_assoc($result);
-                                    $jumlah_item = $data['total'] ?? 0;
+                                     $jumlah_item = isset($data['total']) ? $data['total'] : 0;
                                 } else {
                                     $jumlah_item = 0;
                                 }
@@ -125,7 +125,7 @@ session_start();
                                                 <ul class="products">
                                                     <?php
                                                     include 'admin/koneksi.php';
-                                                    $user_id = $_SESSION['id_user'] ?? null;
+                                                    $user_id = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null;
 
                                                     if ($user_id) {
                                                         $query = "SELECT p.*, pr.nm_produk, pr.harga, pr.gambar 
@@ -242,31 +242,31 @@ session_start();
                         <div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px">
                             <h4 class="box-title">Kontak Kami</h4>
                             <p class="frst-desc">
-                                Kami siap membantu Anda! Jika Anda memiliki pertanyaan, masukan, atau ingin mengetahui lebih lanjut tentang produk dan layanan kami, jangan ragu untuk menghubungi kami. Tim kami akan dengan senang hati merespons Anda secepat mungkin.
+                               Ada pertanyaan atau ingin pesan? Hubungi kami kapan saja!, Kami siap melayani Anda dengan cepat dan ramah, Jangan ragu untuk menghubungi kami melalui telepon, email, atau kunjungi toko kami di alamat yang tertera di bawah ini. Kami akan segera merespons pertanyaan Anda dan membantu Anda dengan segala kebutuhan Anda. Terima kasih telah memilih PantryNusantara sebagai mitra belanja Anda!
                             </p>
                             <ul class="addr-info">
                                 <li>
                                     <div class="if-item">
                                         <b class="tie">Alamat:</b>
-                                        <p class="dsc">7Jl. Kampus Ronggolawe No.1 Mentul, Indah, Komp. Pertamina,<br>Karangboyo, Kec. Cepu, Kabupaten Blora, Jawa Tengah 58315</p>
+                                        <p class="dsc">Jetis, Sidorejo, Kec. Kedungtuban, Kabupaten Blora, Jawa Tengah 58315</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="if-item">
                                         <b class="tie">Telepon:</b>
-                                        <p class="dsc">0812 2728 6595</p>
+                                        <p class="dsc">0813-5930-3621</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="if-item">
                                         <b class="tie">Email:</b>
-                                        <p class="dsc">Freshlyid@gmail.com</p>
+                                        <p class="dsc">marfancepu@gmail.com</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="if-item">
                                         <b class="tie">Toko Buka:</b>
-                                        <p class="dsc">Sen-Jum: 8:30am-7:30pm; Sab-Min: 9:30am-4:30pm</p>
+                                        <p class="dsc">Senin - Sabtu Jam: 08.00 - 20.00</p>
                                     </div>
                                 </li>
                             </ul>
@@ -308,12 +308,12 @@ session_start();
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-9">
                         <section class="footer-item">
-                            <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">Freshly.id</b></a>
+                            <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">PantryNusantara</b></a>
                             <div class="footer-phone-info">
                                 <i class="biolife-icon icon-head-phone"></i>
                                 <p class="r-info">
                                     <span>Ada Pertanyaan ?</span>
-                                    <span>0812-1500-8533</span>
+                                    <span>0813-5930-3621</span>
                                 </p>
                             </div>
                         </section>
@@ -331,33 +331,32 @@ session_start();
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-location"></i>
-                                            <b class="desc">Cepu-Blora, Jawa Tengah. Indonesia</b>
+                                            <b class="desc">Kedungtuban, Jawa Tengah. Indonesia</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-phone"></i>
-                                            <b class="desc">Telepon: 0812-1500-8533</b>
+                                            <b class="desc">Telepon: 0813-5930-3621</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-letter"></i>
-                                            <b class="desc">Email: Freshlyid@gmail.com</b>
+                                            <b class="desc">Email: marfancepu@gmail.com</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-clock"></i>
-                                            <b class="desc">Jam Buka: Setiap hari, Mulai Pukul 08:00</b>
+                                            <b class="desc">Jam Buka: Senin - Sabtu, Jam: 08.00 - 20.00</b>
                                         </p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="biolife-social inline">
                                 <ul class="socials">
-                                    <li><a href="https://instagram.com/dea.salsa.503/" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    <li><a href="https://instagram.com/meaffq/" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </section>

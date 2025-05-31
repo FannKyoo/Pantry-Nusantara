@@ -4,73 +4,20 @@ include "koneksi.php";
 
 // Cek apakah sudah login
 if (!isset($_SESSION["login"])) {
-    header("Location: login.php");
-    exit;
+  header("Location: login.php");
+  exit;
 }
 
 // Cek apakah status tersedia dan pastikan user adalah admin
 if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
-    echo "<script>
-      alert('Akses ditolak! Halaman ini hanya untuk Admin.');
-      window.location.href='login.php';
-    </script>";
-    exit;
-}
-
-// Pastikan ada ID produk yang dikirimkan
-if (isset($_GET['id'])) {
-    $id_produk = $_GET['id'];
-
-    // Ambil data produk berdasarkan ID
-    $query = mysqli_query($koneksi, "SELECT * FROM tb_produk WHERE id_produk = '$id_produk'");
-    $data = mysqli_fetch_array($query);
-}
-
-// Jika tombol update ditekan
-if (isset($_POST['update'])) {
-    $nm_produk = $_POST['nm_produk'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $desk = $_POST['desk'];
-    $id_ktg = $_POST['id_ktg'];
-    $gambar_lama = $_POST['gambar_lama'];
-
-    // Cek apakah ada gambar baru yang diupload
-    if ($_FILES['gambar']['name'] != "") {
-        $imgfile = $_FILES['gambar']['name'];
-        $tmp_file = $_FILES['gambar']['tmp_name'];
-        $extension = strtolower(pathinfo($imgfile, PATHINFO_EXTENSION));
-        $dir = "produk_img/";
-        $allowed_extensions = array("jpg", "jpeg", "png", "webp");
-
-        if (!in_array($extension, $allowed_extensions)) {
-            echo "<script>alert('Format tidak valid. Hanya jpg, jpeg, png, dan webp yang diperbolehkan.');</script>";
-        } else {
-            // Hapus gambar lama jika ada
-            if (file_exists($dir . $gambar_lama) && $gambar_lama != "") {
-                unlink($dir . $gambar_lama);
-            }
-
-            // Simpan gambar baru dengan nama unik
-            $imgnewfile = md5(time() . $imgfile) . "." . $extension;
-            move_uploaded_file($tmp_file, $dir . $imgnewfile);
-        }
-    } else {
-        $imgnewfile = $gambar_lama; // Jika tidak ada gambar baru, gunakan gambar lama
-    }
-
-    // Update data ke database
-    $query = mysqli_query($koneksi, "UPDATE tb_produk SET nm_produk='$nm_produk', harga='$harga', stok='$stok', desk='$desk', id_ktg='$id_ktg', gambar='$imgnewfile' WHERE id_produk='$id_produk'");
-
-    if ($query) {
-        echo "<script>alert('Produk berhasil diperbarui!');</script>";
-        header("refresh:0, produk.php");
-    } else {
-        echo "<script>alert('Gagal memperbarui produk!');</script>";
-        header("refresh:0, produk.php");
-    }
+  echo "<script>
+    alert('Akses ditolak! Halaman ini hanya untuk Admin.');
+    window.location.href='login.php';
+  </script>";
+  exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +25,7 @@ if (isset($_POST['update'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Produk - PantryNusantara Admin</title>
+    <title>Transaksi - PantryNusantara Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -101,6 +48,7 @@ if (isset($_POST['update'])) {
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -116,16 +64,8 @@ if (isset($_POST['update'])) {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -137,7 +77,6 @@ if (isset($_POST['update'])) {
                             <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?></h6>
                             <span>Admin</span>
                         </li>
-
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -218,70 +157,106 @@ if (isset($_POST['update'])) {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Produk</h1>
+            <h1>Detail Jual</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
-                    <li class="breadcrumb-item">Produk</li>
-                    <li class="breadcrumb-item active">Edit</li>
+                    <li class="breadcrumb-item">Transaksi</li>
+                    <li class="breadcrumb-item active">Detail Jual</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
+        <!-- End Page Title -->
 
         <section class="section">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <form class="row g-3 mt-2" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="gambar_lama" value="<?php echo $data['gambar']; ?>">
-                                <div class="col-12">
-                                    <label for="nm_produk" class="form-label">Nama Produk</label>
-                                    <input type="text" class="form-control" id="nm_produk" name="nm_produk" placeholder="Masukkan Nama Produk" value="<?php echo $data['nm_produk']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukkan Harga Produk" value="<?php echo $data['harga']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="stok" class="form-label">Stok</label>
-                                    <input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan Stok Produk" value="<?php echo $data['stok']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="desk" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="desk" name="desk" placeholder="Masukkan Deskripsi Produk" required><?php echo $data['desk']; ?></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label for="id_ktg" class="form-label">Kategori</label>
-                                    <select class="form-control" id="id_ktg" name="id_ktg" required>
-                                        <option value="">-- Pilih Kategori --</option>
+                            <h5 class="card-title">Lihat Detail Transaksi</h5>
+                            <div class="table-responsive">
+                                <?php
+                                include 'koneksi.php'; // pastikan koneksi DB kamu benar
+
+                                $id_jual = $_GET['id']; // misalnya dari URL atau request
+
+                                // ambil data tb_jual
+                                $jual = mysqli_fetch_assoc(mysqli_query($koneksi, "
+    SELECT * FROM tb_jual tj 
+    JOIN tb_user tu ON tj.id_user = tu.id_user 
+    WHERE tj.id_jual = '$id_jual'
+"));
+
+                                // ambil data detail jual
+                                $detail = mysqli_query($koneksi, "
+    SELECT tjd.id_produk, tjd.qty, tjd.harga AS subtotal, tp.nm_produk, tp.harga AS harga_produk
+    FROM tb_jualdtl tjd 
+    JOIN tb_produk tp ON tjd.id_produk = tp.id_produk 
+    WHERE tjd.id_jual = '$id_jual'
+");
+                                ?>
+
+                                <table class="table table-striped mt-2">
+                                    <tbody>
+                                        <tr>
+                                            <th>Kode Belanja</th>
+                                            <td><?= $jual['id_jual'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pengguna</th>
+                                            <td><?= $jual['username'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <td><?= date('d-m-Y H:i:s', strtotime($jual['tgl_jual'])) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Bayar</th>
+                                            <td>Rp <?= number_format($jual['total'], 0, ',', '.') ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Diskon</th>
+                                            <td>Rp <?= number_format($jual['diskon'], 0, ',', '.') ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h5>Detail Pembelian:</h5>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Produk</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <?php
-                                        $query_kategori = mysqli_query($koneksi, "SELECT * FROM tb_ktg");
-                                        while ($kategori = mysqli_fetch_array($query_kategori)) {
-                                            $selected = ($kategori['id_ktg'] == $data['id_ktg']) ? 'selected' : '';
-                                            echo "<option value='{$kategori['id_ktg']}' $selected>{$kategori['nm_ktg']}</option>";
-                                        }
+                                        $no = 1;
+                                        while ($d = mysqli_fetch_assoc($detail)) :
                                         ?>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label for="gambar" class="form-label">Gambar Produk</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-                                    <br>
-                                    <?php if ($data['gambar']) { ?>
-                                        <img src="produk_img/<?php echo $data['gambar']; ?>" width="150">
-                                    <?php } ?>
-                                </div>
-                                <div class="text-center">
-                                    <button type="reset" class="btn btn-secondary">Reset</button>
-                                    <button type="submit" class="btn btn-primary" name="update">Simpan</button>
-                                </div>
-                            </form>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $d['nm_produk'] ?></td>
+                                                <td>Rp <?= number_format($d['harga_produk'], 0, ',', '.') ?></td>
+                                                <td><?= $d['qty'] ?></td>
+                                                <td>Rp <?= number_format($d['subtotal'], 0, ',', '.') ?></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <a href="transaksi.php" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+
 
     </main><!-- End #main -->
 

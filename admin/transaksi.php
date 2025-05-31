@@ -25,7 +25,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pengguna- PantryNusantara Admin</title>
+    <title>Transaksi - PantryNusantara Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -64,22 +64,10 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword" value="<?php echo isset($_POST['query']) ? htmlspecialchars($_POST['query']) : ''; ?>">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-
+                <li class="nav-item dropdown">
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -91,10 +79,6 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
                             <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?></h6>
                             <span>Admin</span>
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -115,52 +99,53 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-           <li class="nav-item">
-                <a class="nav-link collapsed" href="index.php">
-                   <i class="bi bi-1-circle"></i>
-                    <span>Beranda</span>
-                </a>
-            </li><!-- End Beranda Nav -->
-
             <li class="nav-item">
-                <a class="nav-link collapsed" href="kategori.php">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    <span>Kategori Produk</span>
-                </a>
-            </li><!-- End Kategori Page Nav -->
+        <a class="nav-link " href="index.php">
+        <i class="bi bi-1-circle"></i>
+          <span>Beranda</span>
+        </a>
+      </li><!-- End Beranda Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link" href="produk.php">
-                    <i class="bi bi-amazon"></i>
-                    <span>Produk</span>
-                </a>
-            </li><!-- End Produk Page Nav -->
+     
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="kategori.php">
+        <i class="bi bi-arrow-right-square-fill"></i>
+          <span>Kategori Produk</span>
+        </a>
+      </li><!-- End Kategori Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="keranjang.php">
-                  <i class="bi bi-inboxes"></i>
-                    <span>Keranjang</span>
-                </a>
-            </li><!-- End Keranjang Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="produk.php">
+        <i class="bi bi-amazon"></i>
+          <span>Produk</span>
+        </a>
+      </li><!-- End Produk Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="transaksi.php">
-                    <i class="bi bi-currency-yen"></i>
-                    <span>Transaksi</span>
-                </a>
-            </li><!-- End Transaksi Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="keranjang.php">
+        <i class="bi bi-inboxes"></i>
+          <span>Keranjang</span>
+        </a>
+      </li><!-- End Keranjang Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="laporan.php">
-                    <i class="bi bi-bug-fill"></i>
-                    <span>Laporan</span>
-                </a>
-            </li><!-- End Laporan Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="transaksi.php">
+        <i class="bi bi-currency-yen"></i>
+          <span>Transaksi</span>
+        </a>
+      </li><!-- End Transaksi Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pengguna.php">
-                     <i class="bi bi-crosshair2"></i>
-                    <span>Pengguna</span>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="laporan.php">
+        <i class="bi bi-bug-fill"></i>
+          <span>Laporan</span>
+        </a>
+      </li><!-- End Laporan Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pengguna.php">
+        <i class="bi bi-crosshair2"></i>
+          <span>Pengguna</span>
                 </a>
             </li><!-- End Pengguna Page Nav -->
         </ul>
@@ -170,11 +155,11 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Pengguna</h1>
+            <h1>Transaksi</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
-                    <li class="breadcrumb-item active">Pengguna</li>
+                    <li class="breadcrumb-item active">Transaksi</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -183,13 +168,52 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="t_pengguna.php" class="btn btn-primary mt-3">
-                            <i class="bi bi-plus-lg"></i> Tambah Data
-                        </a>
+                        <?php
+                        // Sertakan file koneksi
+                        include 'koneksi.php';
+
+                        // Ambil kategori dari database untuk dropdown filter
+                        $sql_kategori = "SELECT id_ktg, nm_ktg FROM tb_ktg";
+                        $result_kategori = $koneksi->query($sql_kategori);
+
+                        // Ambil kategori yang dipilih dari URL (jika ada)
+                        $kategori_filter = isset($_GET['kategori']) ? $_GET['kategori'] : "";
+
+                        // Query untuk mengambil data penjualan dengan filter kategori jika ada
+                        $sql = "SELECT j.id_jual, u.username, j.tgl_jual, j.total, j.diskon 
+        FROM tb_jual j 
+        JOIN tb_user u ON j.id_user = u.id_user";
+
+                        if (!empty($kategori_filter)) {
+                            // Jika kategori dipilih, filter berdasarkan kategori yang terkait dengan produk dalam tb_jualdtl
+                            $sql .= " JOIN tb_jualdtl jd ON j.id_jual = jd.id_jual
+              JOIN tb_produk p ON jd.id_produk = p.id_produk
+              WHERE p.id_ktg = '$kategori_filter'";
+                        }
+
+                        $sql .= " GROUP BY j.id_jual ORDER BY j.tgl_jual ASC"; // Mengelompokkan dan mengurutkan berdasarkan tanggal terbaru
+                        $result = $koneksi->query($sql);
+                        ?>
+                        <div class="filter-bar mt-3">
+                            <form class="filter-form d-flex align-items-center" method="GET" action="">
+                                <select name="kategori" class="form-select me-2" style="max-width: 200px;" title="Pilih kategori">
+                                    <option value="">-- Semua Kategori --</option>
+                                    <?php
+                                    if ($result_kategori->num_rows > 0) {
+                                        while ($row = $result_kategori->fetch_assoc()) {
+                                            $selected = ($kategori_filter == $row['id_ktg']) ? "selected" : "";
+                                            echo "<option value='" . $row['id_ktg'] . "' $selected>" . htmlspecialchars($row['nm_ktg']) . "</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <button type="submit" class="btn btn-primary ms-2">Filter</button>
+                            </form>
+                        </div><!-- End Filter Bar -->
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- End Filter Bar -->
 
         <section class="section">
             <div class="row">
@@ -201,52 +225,33 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Username</th>
-                                        <th>Status</th>
+                                        <th>Kode Belanja</th>
+                                        <th>Pengguna</th>
+                                        <th>Tanggal</th>
+                                        <th>Total Bayar</th>
+                                        <th>Diskon</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    include "koneksi.php";
                                     $no = 1;
-
-                                    // Cek apakah ada input pencarian
-                                    $query = isset($_POST['query']) ? mysqli_real_escape_string($koneksi, $_POST['query']) : '';
-
-                                    // Query dasar
-                                    $sql_query = "SELECT id_user, username, status FROM tb_user";
-
-                                    // Tambahkan pencarian jika input tidak kosong
-                                    if (!empty($query)) {
-                                        $sql_query .= " WHERE username LIKE '%$query%'";
-                                    }
-
-                                    $sql = mysqli_query($koneksi, $sql_query);
-
-                                    if (mysqli_num_rows($sql) > 0) {
-                                        while ($hasil = mysqli_fetch_array($sql)) {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $no++; ?></td>
-                                                <td><?php echo $hasil['username']; ?></td>
-                                                <td><?php echo $hasil['status']; ?></td>
-                                                <td>
-                                                    <a href="h_pengguna.php?id=<?php echo $hasil['id_user']; ?>"
-                                                        class="btn btn-danger"
-                                                        onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')">
-                                                        <i class="bi bi-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>" . $no++ . "</td>";
+                                            echo "<td>" . $row["id_jual"] . "</td>";
+                                            echo "<td>" . $row["username"] . "</td>";
+                                            echo "<td>" . date("d-m-Y H:i:s", strtotime($row["tgl_jual"])) . "</td>";
+                                            echo "<td>Rp " . number_format($row["total"], 0, ",", ".") . "</td>";
+                                            echo "<td>Rp " . number_format($row["diskon"], 0, ",", ".") . "</td>";
+                                            echo "<td>
+                                            <a href='detail_jual.php?id=" . $row["id_jual"] . "' class='btn btn-info btn-sm'>Detail</a>
+                                          </td>";
+                                            echo "</tr>";
                                         }
                                     } else {
-                                        ?>
-                                        <tr>
-                                            <td colspan="4" class="text-center">Data tidak ditemukan</td>
-                                        </tr>
-                                        <?php
+                                        echo "<tr><td colspan='7' class='text-center'>Belum ada data penjualan</td></tr>";
                                     }
                                     ?>
                                 </tbody>

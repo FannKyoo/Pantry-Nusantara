@@ -169,10 +169,6 @@ $result_lainnya = $koneksi->query($query_lainnya);
                                     <div class="minicart-contain">
                                         <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
-                                                <i class="icon-cart-mini biolife-icon"></i>
-                                                <span class="qty"><?= $jumlah_item ?></span>
-                                            </span>
-                                            <span class="title">Keranjang</span>
                                         </a>
                                         <div class="cart-content">
                                             <div class="cart-inner">
@@ -193,34 +189,6 @@ $result_lainnya = $koneksi->query($query_lainnya);
                                                             $total_harga = $row['harga'] * $row['qty'];
                                                             $subtotal += $total_harga;
                                                             ?>
-                                                            <li>
-                                                                <div class="minicart-item">
-                                                                    <div class="thumb">
-                                                                        <a href="#"><img
-                                                                                src="admin/produk_img/<?= $row['gambar'] ?>"
-                                                                                width="90" height="90"
-                                                                                alt="<?= $row['nm_produk'] ?>"></a>
-                                                                    </div>
-                                                                    <div class="left-info">
-                                                                        <div class="product-title"><a href="#"
-                                                                                class="product-name"><?= $row['nm_produk'] ?></a>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <ins><span class="price-amount"><span
-                                                                                        class="currencySymbol">Rp.</span><?= number_format($row['harga'], 0, ',', '.') ?></span></ins>
-                                                                        </div>
-                                                                        <div class="qty">
-                                                                            <label>Qty:</label>
-                                                                            <input type="number" class="input-qty"
-                                                                                value="<?= $row['qty'] ?>" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="action">
-                                                                        <a href="hapus_item.php?id=<?= $row['id_pesanan'] ?>"><i
-                                                                                class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
                                                             <?php
                                                         endwhile;
                                                     } else {

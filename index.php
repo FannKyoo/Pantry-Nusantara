@@ -8,7 +8,7 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beranda - Freshly.id</title>
+    <title>Beranda - PantryNusantara</title>
     <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
@@ -104,7 +104,7 @@ session_start();
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-6 d-flex align-items-center">
-                        <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">Freshly.id</b></a>
+                        <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">PantryNusantara</b></a>
                     </div>
                     <div class="col-lg-6 col-md-6 d-none d-md-block text-center">
                         <div class="primary-menu">
@@ -119,16 +119,16 @@ session_start();
                     </div>
                     <div class="col-lg-3 col-md-3 col-6 d-flex justify-content-end align-items-center">
                         <div class="biolife-cart-info">
-                            <?php if (isset($_SESSION['username'])) : ?>
+                            <?php if (isset($_SESSION['username'])): ?>
                                 <?php
                                 include 'admin/koneksi.php';
-                                $user_id = $_SESSION['id_user'] : null;
+                                $user_id = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null;
 
                                 if ($user_id) {
                                     $query = "SELECT COUNT(*) as total FROM tb_pesanan WHERE id_user = '$user_id'";
                                     $result = mysqli_query($koneksi, $query);
                                     $data = mysqli_fetch_assoc($result);
-                                    $jumlah_item = $data['total'] ?? 0;
+                                    $jumlah_item = isset($data['total']) ? $data['total'] : 0;
                                 } else {
                                     $jumlah_item = 0;
                                 }
@@ -145,43 +145,51 @@ session_start();
                                         <div class="cart-content">
                                             <div class="cart-inner">
                                                 <ul class="products">
-                                                    <?php
+                                                   <?php
                                                     include 'admin/koneksi.php';
-                                                    $user_id = $_SESSION['id_user'] ?? null;
+                                                    $user_id = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null;
 
                                                     if ($user_id) {
                                                         $query = "SELECT p.*, pr.nm_produk, pr.harga, pr.gambar 
-                  FROM tb_pesanan p 
-                  JOIN tb_produk pr ON p.id_produk = pr.id_produk 
-                  WHERE p.id_user = '$user_id'";
+                    FROM tb_pesanan p 
+                    JOIN tb_produk pr ON p.id_produk = pr.id_produk 
+                    WHERE p.id_user = '$user_id'";
                                                         $result = mysqli_query($koneksi, $query);
                                                         $subtotal = 0;
 
-                                                        while ($row = mysqli_fetch_assoc($result)) :
+                                                        while ($row = mysqli_fetch_assoc($result)):
                                                             $total_harga = $row['harga'] * $row['qty'];
                                                             $subtotal += $total_harga;
-                                                    ?>
+                                                            ?>
                                                             <li>
                                                                 <div class="minicart-item">
                                                                     <div class="thumb">
-                                                                        <a href="#"><img src="admin/produk_img/<?= $row['gambar'] ?>" width="90" height="90" alt="<?= $row['nm_produk'] ?>"></a>
+                                                                        <a href="#"><img
+                                                                                src="admin/produk_img/<?= $row['gambar'] ?>"
+                                                                                width="90" height="90"
+                                                                                alt="<?= $row['nm_produk'] ?>"></a>
                                                                     </div>
                                                                     <div class="left-info">
-                                                                        <div class="product-title"><a href="#" class="product-name"><?= $row['nm_produk'] ?></a></div>
+                                                                        <div class="product-title"><a href="#"
+                                                                                class="product-name"><?= $row['nm_produk'] ?></a>
+                                                                        </div>
                                                                         <div class="price">
-                                                                            <ins><span class="price-amount"><span class="currencySymbol">Rp.</span><?= number_format($row['harga'], 0, ',', '.') ?></span></ins>
+                                                                            <ins><span class="price-amount"><span
+                                                                                        class="currencySymbol">Rp.</span><?= number_format($row['harga'], 0, ',', '.') ?></span></ins>
                                                                         </div>
                                                                         <div class="qty">
                                                                             <label>Qty:</label>
-                                                                            <input type="number" class="input-qty" value="<?= $row['qty'] ?>" disabled>
+                                                                            <input type="number" class="input-qty"
+                                                                                value="<?= $row['qty'] ?>" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <div class="action">
-                                                                        <a href="hapus_item.php?id=<?= $row['id_pesanan'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                        <a href="hapus_item.php?id=<?= $row['id_pesanan'] ?>"><i
+                                                                                class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </li>
-                                                    <?php
+                                                            <?php
                                                         endwhile;
                                                     } else {
                                                         echo '<li><p style="padding: 10px;">Keranjang kosong.</p></li>';
@@ -428,8 +436,7 @@ session_start();
 
                                 // Query untuk join tb_produk dan tb_ktg, mengambil 8 data acak
                                 $query = "
-    SELECT p.*, k.nm_ktg 
-    FROM tb_produk p 
+    SELECT p.*, k.nm_ktg FROM tb_produk p 
     JOIN tb_ktg k ON p.id_ktg = k.id_ktg 
     ORDER BY RAND() 
     LIMIT 8
@@ -455,7 +462,7 @@ session_start();
                                                         <ins><span class="price-amount"><span class="currencySymbol">Rp.</span><?= number_format($row['harga'], 0, ',', '.') ?></span></ins>
                                                     </div>
                                                     <div class="slide-down-box">
-                                                        <p class="message"><?= $row['ket'] ?></p>
+                                                        <p class="message"><?= $row['desk'] ?></p>
                                                         <div class="buttons">
                                                             <a href="detail_produk.php?id=<?= $row['id_produk'] ?>" class="btn add-to-cart-btn">
                                                                 <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>Keranjang
@@ -656,12 +663,12 @@ session_start();
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-9">
                         <section class="footer-item">
-                            <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">Freshly.id</b></a>
+                            <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png" alt="biolife logo"><b style="font-size: 190% ; color: black;">PantryNusantara</b></a>
                             <div class="footer-phone-info">
                                 <i class="biolife-icon icon-head-phone"></i>
                                 <p class="r-info">
                                     <span>Ada Pertanyaan ?</span>
-                                    <span>0812-1500-8533</span>
+                                    <span>0813-5930-3621</span>
                                 </p>
                             </div>
                         </section>
@@ -679,33 +686,32 @@ session_start();
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-location"></i>
-                                            <b class="desc">Cepu-Blora, Jawa Tengah. Indonesia</b>
+                                            <b class="desc">Kedungtuban, Jawa Tengah. Indonesia</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-phone"></i>
-                                            <b class="desc">Telepon: 0812-1500-8533</b>
+                                            <b class="desc">Telepon: 0813-5930-3621</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-letter"></i>
-                                            <b class="desc">Email: Freshlyid@gmail.com</b>
+                                            <b class="desc">Email: marfancepu@gmail.com</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-clock"></i>
-                                            <b class="desc">Jam Buka: Setiap hari, Mulai Pukul 08:00</b>
+                                            <b class="desc">Jam Buka: Senin - Sabtu, Jam: 08.00 - 20.00</b>
                                         </p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="biolife-social inline">
                                 <ul class="socials">
-                                    <li><a href="https://instagram.com/dea.salsa.503/" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    <li><a href="https://instagram.com/meaffq/" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                   <li><a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </section>

@@ -11,66 +11,13 @@ if (!isset($_SESSION["login"])) {
 // Cek apakah status tersedia dan pastikan user adalah admin
 if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
     echo "<script>
-      alert('Akses ditolak! Halaman ini hanya untuk Admin.');
-      window.location.href='login.php';
-    </script>";
+    alert('Akses ditolak! Halaman ini hanya untuk Admin.');
+    window.location.href='login.php';
+  </script>";
     exit;
 }
-
-// Pastikan ada ID produk yang dikirimkan
-if (isset($_GET['id'])) {
-    $id_produk = $_GET['id'];
-
-    // Ambil data produk berdasarkan ID
-    $query = mysqli_query($koneksi, "SELECT * FROM tb_produk WHERE id_produk = '$id_produk'");
-    $data = mysqli_fetch_array($query);
-}
-
-// Jika tombol update ditekan
-if (isset($_POST['update'])) {
-    $nm_produk = $_POST['nm_produk'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $desk = $_POST['desk'];
-    $id_ktg = $_POST['id_ktg'];
-    $gambar_lama = $_POST['gambar_lama'];
-
-    // Cek apakah ada gambar baru yang diupload
-    if ($_FILES['gambar']['name'] != "") {
-        $imgfile = $_FILES['gambar']['name'];
-        $tmp_file = $_FILES['gambar']['tmp_name'];
-        $extension = strtolower(pathinfo($imgfile, PATHINFO_EXTENSION));
-        $dir = "produk_img/";
-        $allowed_extensions = array("jpg", "jpeg", "png", "webp");
-
-        if (!in_array($extension, $allowed_extensions)) {
-            echo "<script>alert('Format tidak valid. Hanya jpg, jpeg, png, dan webp yang diperbolehkan.');</script>";
-        } else {
-            // Hapus gambar lama jika ada
-            if (file_exists($dir . $gambar_lama) && $gambar_lama != "") {
-                unlink($dir . $gambar_lama);
-            }
-
-            // Simpan gambar baru dengan nama unik
-            $imgnewfile = md5(time() . $imgfile) . "." . $extension;
-            move_uploaded_file($tmp_file, $dir . $imgnewfile);
-        }
-    } else {
-        $imgnewfile = $gambar_lama; // Jika tidak ada gambar baru, gunakan gambar lama
-    }
-
-    // Update data ke database
-    $query = mysqli_query($koneksi, "UPDATE tb_produk SET nm_produk='$nm_produk', harga='$harga', stok='$stok', desk='$desk', id_ktg='$id_ktg', gambar='$imgnewfile' WHERE id_produk='$id_produk'");
-
-    if ($query) {
-        echo "<script>alert('Produk berhasil diperbarui!');</script>";
-        header("refresh:0, produk.php");
-    } else {
-        echo "<script>alert('Gagal memperbarui produk!');</script>";
-        header("refresh:0, produk.php");
-    }
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +25,7 @@ if (isset($_POST['update'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Produk - PantryNusantara Admin</title>
+    <title>Laporan - PantryNusantara Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -101,6 +48,7 @@ if (isset($_POST['update'])) {
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -116,16 +64,8 @@ if (isset($_POST['update'])) {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -137,7 +77,6 @@ if (isset($_POST['update'])) {
                             <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?></h6>
                             <span>Admin</span>
                         </li>
-
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -218,70 +157,121 @@ if (isset($_POST['update'])) {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Produk</h1>
+            <h1>Laporan</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
-                    <li class="breadcrumb-item">Produk</li>
-                    <li class="breadcrumb-item active">Edit</li>
+                    <li class="breadcrumb-item active">Laporan</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
+        <!-- End Page Title -->
+
+        <?php
+        include "koneksi.php";
+
+        if ($koneksi->connect_error) {
+            die("Koneksi gagal: " . $koneksi->connect_error);
+        }
+
+        $sqlKategori = "SELECT id_ktg, nm_ktg FROM tb_ktg";
+        $resultKategori = $koneksi->query($sqlKategori);
+
+        $sqlTransaksi = "SELECT COUNT(*) as total FROM tb_jual";
+        $resultTransaksi = $koneksi->query($sqlTransaksi);
+        $dataTransaksi = $resultTransaksi->fetch_assoc();
+        $adaTransaksi = ($dataTransaksi['total'] > 0);
+
+        $koneksi->close();
+        ?>
 
         <section class="section">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <form class="row g-3 mt-2" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="gambar_lama" value="<?php echo $data['gambar']; ?>">
-                                <div class="col-12">
-                                    <label for="nm_produk" class="form-label">Nama Produk</label>
-                                    <input type="text" class="form-control" id="nm_produk" name="nm_produk" placeholder="Masukkan Nama Produk" value="<?php echo $data['nm_produk']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukkan Harga Produk" value="<?php echo $data['harga']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="stok" class="form-label">Stok</label>
-                                    <input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan Stok Produk" value="<?php echo $data['stok']; ?>" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="desk" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="desk" name="desk" placeholder="Masukkan Deskripsi Produk" required><?php echo $data['desk']; ?></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label for="id_ktg" class="form-label">Kategori</label>
-                                    <select class="form-control" id="id_ktg" name="id_ktg" required>
-                                        <option value="">-- Pilih Kategori --</option>
-                                        <?php
-                                        $query_kategori = mysqli_query($koneksi, "SELECT * FROM tb_ktg");
-                                        while ($kategori = mysqli_fetch_array($query_kategori)) {
-                                            $selected = ($kategori['id_ktg'] == $data['id_ktg']) ? 'selected' : '';
-                                            echo "<option value='{$kategori['id_ktg']}' $selected>{$kategori['nm_ktg']}</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label for="gambar" class="form-label">Gambar Produk</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-                                    <br>
-                                    <?php if ($data['gambar']) { ?>
-                                        <img src="produk_img/<?php echo $data['gambar']; ?>" width="150">
-                                    <?php } ?>
-                                </div>
-                                <div class="text-center">
-                                    <button type="reset" class="btn btn-secondary">Reset</button>
-                                    <button type="submit" class="btn btn-primary" name="update">Simpan</button>
-                                </div>
-                            </form>
+                            <h5 class="card-title">Cetak Laporan</h5>
+
+                            <!-- Pilih Laporan -->
+                            <div class="mb-3">
+                                <label class="form-label">Pilih Laporan</label>
+                                <select id="laporanSelect" class="form-select" onchange="updateTipeLaporan()">
+                                    <option value="" selected disabled>Pilih Laporan</option>
+                                    <option value="produk">Produk</option>
+                                    <option value="transaksi">Transaksi</option>
+                                </select>
+                            </div>
+
+                            <!-- Pilih Tipe Laporan -->
+                            <div class="mb-3">
+                                <label class="form-label">Pilih Tipe Laporan</label>
+                                <select id="tipeLaporanSelect" class="form-select">
+                                    <option value="" selected disabled>Pilih Tipe Laporan</option>
+                                </select>
+                            </div>
+
+                            <button id="btnCetak" class="btn btn-primary">Cetak PDF</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <script>
+            function updateTipeLaporan() {
+                const laporanSelect = document.getElementById("laporanSelect").value;
+                const tipeLaporanSelect = document.getElementById("tipeLaporanSelect");
+
+                tipeLaporanSelect.innerHTML = "";
+
+                if (laporanSelect === "produk") {
+                    let optionAll = document.createElement("option");
+                    optionAll.value = "all";
+                    optionAll.textContent = "All";
+                    tipeLaporanSelect.appendChild(optionAll);
+
+                    <?php if ($resultKategori->num_rows > 0) : ?>
+                        <?php while ($row = $resultKategori->fetch_assoc()) : ?>
+                            let option<?php echo $row['id_ktg']; ?> = document.createElement("option");
+                            option<?php echo $row['id_ktg']; ?>.value = "<?php echo $row['id_ktg']; ?>";
+                            option<?php echo $row['id_ktg']; ?>.textContent = "<?php echo $row['nm_ktg']; ?>";
+                            tipeLaporanSelect.appendChild(option<?php echo $row['id_ktg']; ?>);
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+
+                } else if (laporanSelect === "transaksi") {
+                    let optionAll = document.createElement("option");
+                    optionAll.value = "all";
+                    optionAll.textContent = "All";
+                    tipeLaporanSelect.appendChild(optionAll);
+                }
+            }
+
+            document.getElementById("btnCetak").addEventListener("click", function() {
+                const laporan = document.getElementById("laporanSelect").value;
+                const tipe = document.getElementById("tipeLaporanSelect").value;
+
+                if (!laporan || !tipe) {
+                    alert("Silakan pilih jenis laporan dan tipe laporan terlebih dahulu.");
+                    return;
+                }
+
+                let url = "";
+
+                if (laporan === "produk") {
+                    if (tipe === "all") {
+                        url = "pdf_produk_all.php";
+                    } else {
+                        url = "pdf_produk_kategori.php?id_ktg=" + tipe;
+                    }
+                } else if (laporan === "transaksi") {
+                    url = "pdf_transaksi.php";
+                }
+
+                // Buka file PDF di tab baru
+                window.open(url, "_blank");
+            });
+        </script>
 
     </main><!-- End #main -->
 

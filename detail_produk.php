@@ -27,7 +27,7 @@ if (isset($_POST['add_to_cart'])) {
     if (!isset($_SESSION['login'])) {
         echo "<script>alert('Silakan login terlebih dahulu!'); window.location.href='login.php';</script>";
     } else {
-        $id_user = $_SESSION['id_user'];
+        $id_user = ($_SESSION['id_user']);
         $qty = intval($_POST['qty']);
         $total = $produk['harga'] * $qty;
 
