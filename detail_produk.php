@@ -70,7 +70,7 @@ if (isset($_POST['add_to_cart'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Detail Produk - Dapoerly</title>
+    <title>Detail Produk - PantryNusantara</title>
     <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
@@ -171,7 +171,7 @@ if (isset($_POST['add_to_cart'])) {
                     <div class="col-lg-3 col-md-3 col-6 d-flex align-items-center">
                         <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png"
                                 alt="biolife logo">
-                            <b style="font-size: 150% ; color: green;">Dapoerly</b></a>
+                            <b style="font-size: 150% ; color: green;">PantryNusantara</b></a>
                     </div>
 
                     <div class="col-lg-6 col-md-6 d-none d-md-block text-center">
@@ -472,12 +472,12 @@ if (isset($_POST['add_to_cart'])) {
                     <div class="col-lg-4 col-md-4 col-sm-9">
                         <section class="footer-item">
                             <a href="index.php" class="biolife-logo"><img src="assets/images/favicon.png"
-                                    alt="biolife logo"><b style="font-size: 150% ; color: green;">Dapoerly</b></a>
+                                    alt="biolife logo"><b style="font-size: 150% ; color: green;">PantryNusantara</b></a>
                             <div class="footer-phone-info">
                                 <i class="biolife-icon icon-head-phone"></i>
                                 <p class="r-info">
                                     <span>Ada Pertanyaan ?</span>
-                                    <span>085895996383</span>
+                                    <span>0813-5930-3621</span>
                                 </p>
                             </div>
                         </section>
@@ -494,40 +494,32 @@ if (isset($_POST['add_to_cart'])) {
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-location"></i>
-                                            <b class="desc">Kedewan, Bojonegoro, Jawa Timur, Indonesia</b>
+                                            <b class="desc">Jetis, Sidorejo, Kedungtuban, Blora, Jawa Tengah</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-phone"></i>
-                                            <b class="desc">Telepon: 085895996383</b>
+                                            <b class="desc">Telepon:0813-5930-3621</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-letter"></i>
-                                            <b class="desc">Email: dapoerly@gmail.com</b>
+                                            <b class="desc">Email:marfancepu@gmail.com</b>
                                         </p>
                                     </li>
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-clock"></i>
-                                            <b class="desc">Jam Buka: Setiap hari, Selain hari kiamat</b>
+                                            <b class="desc">Jam Buka: Senin - Sabtu, Jam: 08.00 - 20.00</b>
                                         </p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="biolife-social inline">
                                 <ul class="socials">
-                                    <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter"
-                                                aria-hidden="true"></i></a></li>
-                                    <li><a href="#" title="facebook" class="socail-btn"><i class="fa fa-facebook"
-                                                aria-hidden="true"></i></a></li>
-                                    <li><a href="#" title="pinterest" class="socail-btn"><i class="fa fa-pinterest"
-                                                aria-hidden="true"></i></a></li>
-                                    <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube"
-                                                aria-hidden="true"></i></a></li>
-                                    <li><a href="https://instagram.com/fatkyuun/" title="instagram"
+                                    <li><a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" title="instagram"
                                             class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>

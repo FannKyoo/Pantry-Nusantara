@@ -26,7 +26,7 @@ if(isset($_POST['simpan'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Kategori Produk - FannKyoo Admin</title>
+  <title>Kategori Produk - PantryNusantara Admin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -78,12 +78,12 @@ if(isset($_POST['simpan'])) {
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/user.jpeg" alt="Profile" class="rounded-circle">
+            <img src="assets/img/winter.jpg" alt="Profile" class="rounded-circle">
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>FannKyoo</h6>
+             <h6><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'arfan'; ?></h6>
               <span>Admin</span>
             </li>
             <li>
@@ -214,7 +214,7 @@ if(isset($_POST['simpan'])) {
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-        Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="blank">FannKyoo</a> 
+        Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="blank">bang.fannreign</a> 
     </div>
   </footer><!-- End Footer -->
 

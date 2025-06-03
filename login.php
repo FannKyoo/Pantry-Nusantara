@@ -207,7 +207,7 @@ if (isset($_POST["login"])) {
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-clock"></i>
-                                            <b class="desc">Jam Buka: Senin - Sabtu</b>
+                                            <b class="desc">Jam Buka: Senin - Sabtu, Jam: 08.00 - 20.00</b>
                                         </p>
                                     </li>
                                 </ul>

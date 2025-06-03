@@ -557,26 +557,14 @@ $result_lainnya = $koneksi->query($query_lainnya);
                                             <li>
                                                 <p class="info-item">
                                                     <i class="biolife-icon icon-clock"></i>
-                                                    <b class="desc">Jam Buka: Senin - Sabtu</b>
+                                                    <b class="desc">Jam Buka: Senin - Sabtu, Jam: 08.00 - 20.00</b>
                                                 </p>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="biolife-social inline">
                                         <ul class="socials">
-                                            <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter"
-                                                        aria-hidden="true"></i></a>
-                                            </li>
-                                            <li><a href="#" title="facebook" class="socail-btn"><i
-                                                        class="fa fa-facebook" aria-hidden="true"></i></a>
-                                            </li>
-                                            <li><a href="#" title="pinterest" class="socail-btn"><i
-                                                        class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                            </li>
-                                            <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube"
-                                                        aria-hidden="true"></i></a>
-                                            </li>
-                                            <li><a href="https://instagram.com/fatkyuun/" title="instagram"
+                                            <li><a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" title="instagram"
                                                     class="socail-btn"><i class="fa fa-instagram"
                                                         aria-hidden="true"></i></a>
                                             </li>

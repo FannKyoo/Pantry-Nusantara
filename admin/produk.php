@@ -35,9 +35,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -50,6 +48,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -60,18 +59,17 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.php" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">PantryNusantara</span>
+                <span class="d-none d-lg-block">Freshly.id</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
         <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword"
-                    value="<?php echo isset($_POST['query']) ? htmlspecialchars($_POST['query']) : ''; ?>">
+            <form class="search-form d-flex align-items-center" method="GET" action="">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div>
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -82,11 +80,11 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
                     </a>
                 </li><!-- End Search Icon-->
 
+                <li class="nav-item dropdown">
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="assets/img/winter.jpg" alt="Profile" class="rounded-circle">
-                        <!-- profile-img.jpg diganti dengan foto kalian -->
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -114,55 +112,55 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="index.php">
-                   <i class="bi bi-1-circle"></i>
-                    <span>Beranda</span>
-                </a>
-            </li><!-- End Beranda Nav -->
+           <li class="nav-item">
+        <a class="nav-link " href="index.php">
+        <i class="bi bi-1-circle"></i>
+          <span>Beranda</span>
+        </a>
+      </li><!-- End Beranda Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="kategori.php">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    <span>Kategori Produk</span>
-                </a>
-            </li><!-- End Kategori Page Nav -->
+     
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="kategori.php">
+        <i class="bi bi-arrow-right-square-fill"></i>
+          <span>Kategori Produk</span>
+        </a>
+      </li><!-- End Kategori Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link" href="produk.php">
-                    <i class="bi bi-amazon"></i>
-                    <span>Produk</span>
-                </a>
-            </li><!-- End Produk Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="produk.php">
+        <i class="bi bi-amazon"></i>
+          <span>Produk</span>
+        </a>
+      </li><!-- End Produk Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="keranjang.php">
-                  <i class="bi bi-inboxes"></i>
-                    <span>Keranjang</span>
-                </a>
-            </li><!-- End Keranjang Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="keranjang.php">
+        <i class="bi bi-inboxes"></i>
+          <span>Keranjang</span>
+        </a>
+      </li><!-- End Keranjang Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="transaksi.php">
-                    <i class="bi bi-currency-yen"></i>
-                    <span>Transaksi</span>
-                </a>
-            </li><!-- End Transaksi Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="transaksi.php">
+        <i class="bi bi-currency-yen"></i>
+          <span>Transaksi</span>
+        </a>
+      </li><!-- End Transaksi Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="laporan.php">
-                    <i class="bi bi-bug-fill"></i>
-                    <span>Laporan</span>
-                </a>
-            </li><!-- End Laporan Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="laporan.php">
+        <i class="bi bi-bug-fill"></i>
+          <span>Laporan</span>
+        </a>
+      </li><!-- End Laporan Page Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pengguna.php">
-                     <i class="bi bi-crosshair2"></i>
-                    <span>Pengguna</span>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pengguna.php">
+        <i class="bi bi-crosshair2"></i>
+          <span>Pengguna</span>
                 </a>
             </li><!-- End Pengguna Page Nav -->
-
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -193,24 +191,21 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
         <section class="section">
             <div class="row">
-
                 <div class="col-lg-12">
-
                     <div class="card">
                         <div class="card-body">
-
                             <!-- Table with stripped rows -->
                             <table class="table table-striped mt-2">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama Produk</th>
-                                        <th scope="col">Harga</th>
-                                        <th scope="col">Stok</th>
-                                        <th scope="col">Nama Kategori</th>
-                                        <th scope="col">Deskripsi</th>
-                                        <th scope="col">Gambar</th>
-                                        <th scope="col">Aksi</th>
+                                        <th>No</th>
+                                        <th>Nama Produk</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th>Deskripsi</th>
+                                        <th>Kategori</th>
+                                        <th>Gambar</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -231,41 +226,38 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
                                     if (mysqli_num_rows($sql) > 0) {
                                         while ($hasil = mysqli_fetch_array($sql)) {
-                                            ?>
+                                    ?>
                                             <tr>
                                                 <td><?php echo $no++; ?></td>
                                                 <td><?php echo $hasil['nm_produk']; ?></td>
-                                                <td>RP <?php echo number_format($hasil['harga'], 0, ', ', '.'); ?></td>
+                                                <td>Rp <?php echo number_format($hasil['harga'], 0, ',', '.'); ?></td>
                                                 <td><?php echo $hasil['stok']; ?></td>
-                                                <td><?php echo $hasil['nm_ktg']; ?></td>
                                                 <td><?php echo $hasil['desk']; ?></td>
+                                                <td><?php echo $hasil['nm_ktg']; ?></td>
                                                 <td>
                                                     <?php if (!empty($hasil['gambar'])) { ?>
                                                         <img src="produk_img/<?php echo $hasil['gambar']; ?>" width="100">
                                                     <?php } else { ?>
-                                                        Tidak ada Gambar
+                                                        Tidak ada gambar
                                                     <?php } ?>
                                                 </td>
                                                 <td>
-                                                    <a href="e_produk.php?id=<?php echo $hasil['id_produk']; ?>"
-                                                        class="btn btn-warning">
+                                                    <a href="e_produk.php?id=<?php echo $hasil['id_produk']; ?>" class="btn btn-warning">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
-                                                    <a href="h_produk.php?id=<?php echo $hasil['id_produk']; ?>"
-                                                        class="btn btn-danger"
-                                                        onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
+                                                    <a href="h_produk.php?id=<?php echo $hasil['id_produk']; ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                         }
                                     } else {
                                         ?>
                                         <tr>
-                                            <td colspan="8" class="text-center">Data tidak ditemukan</td>
+                                            <td colspan="8" class="text-center">Belum Ada Data</td>
                                         </tr>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </tbody>
@@ -274,6 +266,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -286,12 +279,11 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] !== "admin") {
             &copy; Copyright <strong><span>PantryNusantara</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="_blank">FannKyoo</a>
+           Designed by <a href="https://www.instagram.com/bang.fannreign?igsh=MWh5NWxrcXdoeTV5Zw==" target="blank">bang.fannreign</a>
         </div>
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
