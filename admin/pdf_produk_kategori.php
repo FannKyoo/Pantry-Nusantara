@@ -1,31 +1,32 @@
-<?php 
+<?php
 require_once __DIR__ . '/vendor/autoload.php';
 require_once('koneksi.php');
 
 // Fungsi query
 function query($query)
 {
-  global $koneksi;
-  $result = mysqli_query($koneksi, $query);
-  $rows = [];
-  while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
-  }
-  return $rows;
+   global $koneksi;
+   $result = mysqli_query($koneksi, $query);
+   $rows = [];
+   while ($row = mysqli_fetch_assoc($result)) {
+      $rows[] = $row;
+   }
+   return $rows;
 }
+
 // Ambil ID kategori dari parameter URL dengan validasi
 $id_ktg = isset($_GET['id_ktg']) ? $_GET['id_ktg'] : null;
 
 if (!$id_ktg) {
-    die("ID Kategori tidak ditemukan.");
+   die("ID Kategori tidak ditemukan.");
 }
 
 // Amankan input dari user
-$id_ktg = mysqli_real_escape_string($koneksi, $id_kategori);
+$id_ktg = mysqli_real_escape_string($koneksi, $id_ktg);
 
 // Query berdasarkan kategori (pastikan pakai tanda kutip karena id_kategori berupa string seperti 'K001')
 $data = query("SELECT tb_produk.id_produk, tb_produk.nm_produk, tb_produk.harga, tb_produk.stok, 
-                      tb_produk.ket, tb_produk.gambar, tb_ktg.nm_ktg
+                      tb_produk.desk, tb_produk.gambar, tb_ktg.nm_ktg
                FROM tb_produk 
                JOIN tb_ktg ON tb_produk.id_ktg = tb_ktg.id_ktg
                WHERE tb_produk.id_ktg = '$id_ktg'");
@@ -75,7 +76,7 @@ $html = '<html>
 </head>
 <body>
 
-<h1 align="center">Freshly.id</h1>
+<h1 align="center">PantryNusantara</h1>
 <hr>
 <h1 align="center">LAPORAN PRODUK BERDASARKAN KATEGORI</h1>
 
@@ -93,16 +94,16 @@ $html = '<html>
 </thead>';
 
 foreach ($data as $row) {
-  $formatted_harga = "Rp " . number_format($row["harga"], 0, ',', '.'); // Format harga
-  $html .= '<tbody>
+   $formatted_harga = "Rp " . number_format($row["harga"], 0, ',', '.'); // Format harga
+   $html .= '<tbody>
   <tr align="center">
-    <td>'.$row["id_produk"].'</td>
-    <td><img src="produk_img/'. $row["gambar"].'" alt="Gambar"></td>
-    <td>'.$row["nm_produk"].'</td>
-    <td>'.$row["nm_ktg"].'</td>  
-    <td>'.$row["ket"].'</td>
-    <td>'.$formatted_harga.'</td>
-    <td>'.$row["stok"].'</td>
+    <td>' . $row["id_produk"] . '</td>
+    <td><img src="produk_img/' . $row["gambar"] . '" alt="Gambar"></td>
+    <td>' . $row["nm_produk"] . '</td>
+    <td>' . $row["nm_ktg"] . '</td>  
+    <td>' . $row["desk"] . '</td>
+    <td>' . $formatted_harga . '</td>
+    <td>' . $row["stok"] . '</td>
   </tr>
   </tbody>';
 }
